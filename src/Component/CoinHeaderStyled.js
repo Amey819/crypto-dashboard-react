@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { AppContext } from "./AppProvider";
+import { DeletableTile } from "./Tile";
 
 const CoinHeader = styled.div`
   display: grid;
@@ -11,11 +12,21 @@ const CoinSymbol = styled.div`
   justify-self: right;
 `;
 
-const CoinHeaderStyled = ({ name, symbol }) => {
+const DeleteIcon = styled.div`
+  display: block;
+  justify-self: right;
+  color: red;
+`;
+
+const CoinHeaderStyled = ({ topSection, name, symbol }) => {
   return (
     <CoinHeader>
       <div>{name}</div>
-      <CoinSymbol>{symbol}</CoinSymbol>
+      {topSection ? (
+        <DeleteIcon> X </DeleteIcon>
+      ) : (
+        <CoinSymbol>{symbol}</CoinSymbol>
+      )}
     </CoinHeader>
   );
 };

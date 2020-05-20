@@ -16,6 +16,7 @@ const AppLayout = () => {
           !firstVisit ? <Item>Welcome to Dashboard</Item> : null
         }
       </AppContext.Consumer>
+      <CoinGrid topSection />
       <ConfirmFav />
       <CoinGrid />
     </div>
