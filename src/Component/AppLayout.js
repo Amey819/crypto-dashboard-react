@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ConfirmFav from "./ConfirmFav";
 import CoinGrid from "./CoinGrid";
 import { AppContext } from "./AppProvider";
+import Page from "./Page";
+import Search from "./Search";
 const Item = styled.div`
   font-size: 2em;
   padding: 20px;
@@ -10,16 +12,12 @@ const Item = styled.div`
 
 const AppLayout = () => {
   return (
-    <div>
-      <AppContext.Consumer>
-        {({ firstVisit }) =>
-          !firstVisit ? <Item>Welcome to Dashboard</Item> : null
-        }
-      </AppContext.Consumer>
+    <Page name="Settings">
       <CoinGrid topSection />
       <ConfirmFav />
+      <Search />
       <CoinGrid />
-    </div>
+    </Page>
   );
 };
 

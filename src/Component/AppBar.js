@@ -1,6 +1,7 @@
 import React from "react";
 import { AppContext } from "./AppProvider";
 import styled, { css } from "styled-components";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const Bar = styled.div`
   display: grid;
@@ -24,13 +25,15 @@ const Button = styled.div`
 function ControlButton({ name }) {
   console.log(name);
   return (
-    <AppContext.Consumer>
-      {({ page, setPage }) => (
-        <Button active={page === name} onClick={() => setPage(name)}>
-          {name}
-        </Button>
-      )}
-    </AppContext.Consumer>
+    <Router>
+      <AppContext.Consumer>
+        {({ firstVisit, page, setPage }) => (
+          <Button active={page === name} onClick={() => setPage(name)}>
+            {name}
+          </Button>
+        )}
+      </AppContext.Consumer>
+    </Router>
   );
 }
 const AppBar = () => {

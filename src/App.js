@@ -7,7 +7,8 @@ import styled from "styled-components";
 import Main from "./Component/Main";
 import AppProvider from "./Component/AppProvider";
 import Content from "./Component/Content";
-
+import Dashboard from "./Component/Dashboard";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
   return (
     <Main>
@@ -15,6 +16,7 @@ function App() {
         <AppBar />
         <Content>
           <AppLayout />
+          <Dashboard />
         </Content>
       </AppProvider>
     </Main>

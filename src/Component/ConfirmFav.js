@@ -1,6 +1,7 @@
 import React from "react";
 import { AppContext } from "./AppProvider";
 import styled from "styled-components";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { fontSize1, color3, greenBoxShadow } from "./Styles";
 
 const ConfirmButt = styled.div`
