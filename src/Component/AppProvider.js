@@ -1,10 +1,11 @@
 import React from "react";
 import { pull } from "lodash";
+import moment from "moment";
 const cc = require("cryptocompare");
 
-// cc.setApiKey(
-//   "2cf4e7d66d8ef78bb69e9bafec9cc311adc7971b87a850eef55a1ca6815fd9e1"
-// );
+cc.setApiKey(
+  "2cf4e7d66d8ef78bb69e9bafec9cc311adc7971b87a850eef55a1ca6815fd9e1"
+);
 // To Create a global state that could be accessed in components
 export const AppContext = React.createContext(); // Create a context to be used across components
 const MAX_FAVORITES = 10;
@@ -27,6 +28,7 @@ export default class AppProvider extends React.Component {
   componentWillMount() {
     this.fetchCoins();
     this.fetchPrices();
+    this.fetchHistorical();
   }
 
   savedSettings() {
@@ -42,6 +44,7 @@ export default class AppProvider extends React.Component {
     this.setState({
       currentFavorites: sym,
     });
+    this.fetchHistorical();
     localStorage.setItem(
       "cryptodash",
       JSON.stringify({
@@ -122,6 +125,37 @@ export default class AppProvider extends React.Component {
     console.log(this.state);
   };
 
+  fetchHistorical = async () => {
+    if (this.state.firstVisit) return;
+    let result = await this.historical();
+    let historical = {
+      name: this.state.currentFavorites,
+      data: result.map((ticker, index) => [
+        moment()
+          .subtract({ months: 10 - index })
+          .valueOf(),
+        ticker.USD,
+      ]),
+    };
+    this.setState({ historical });
+  };
+
+  historical = () => {
+    // create an array
+    let history = [];
+    // loop till 10
+    for (let i = 10; i > 0; i--) {
+      // get the last 10 days data
+      history.push(
+        cc.priceHistorical(
+          this.state.currentFavorites,
+          ["USD"],
+          moment().subtract({ months: i }).toDate()
+        )
+      );
+    }
+    return Promise.all(history);
+  };
   render() {
     return (
       <AppContext.Provider value={this.state}>

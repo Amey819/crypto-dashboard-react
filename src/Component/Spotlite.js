@@ -4,34 +4,36 @@ import styled, { css } from "styled-components";
 import { AppContext } from "./AppProvider";
 import CoinImage from "./CoinImage";
 import PriceChart from "./PriceChart";
+import { fontSizeBig } from "./Styles";
 const MainTile = styled.div`
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr 3fr;
   grid-gap: 15px;
   margin-top: 20px;
 `;
-const SpotCoin = styled(Tile)`
-  height: 200px;
+
+const Name = styled.div`
+  ${fontSizeBig}
 `;
 
 function LiteCoin(coinList, currentFavorites) {
   console.log(currentFavorites);
   return (
     <div>
-      <div> {coinList[currentFavorites].CoinName}</div>
-      <CoinImage coin={coinList[currentFavorites]} />
+      <Name> {coinList[currentFavorites].CoinName}</Name>
+      <CoinImage coin={coinList[currentFavorites]} spotlite />
     </div>
   );
 }
-const HighChart = styled(Tile)``;
+
 const Spotlite = () => {
   return (
     <AppContext.Consumer>
       {({ currentFavorites, coinList }) => (
         <MainTile>
-          <SpotCoin>
+          <Tile>
             {currentFavorites ? LiteCoin(coinList, currentFavorites) : null}
-          </SpotCoin>
+          </Tile>
           <PriceChart />
         </MainTile>
       )}

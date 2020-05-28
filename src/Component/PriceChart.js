@@ -6,9 +6,9 @@ import HighCharts from "react-highcharts";
 const PriceChart = () => {
   return (
     <AppContext.Consumer>
-      {() => (
+      {(historical) => (
         <Tile>
-          <HighCharts config={Config()} />
+          <HighCharts config={Config(historical)} />
         </Tile>
       )}
     </AppContext.Consumer>
